@@ -35,21 +35,38 @@ const loadCatagoryDetails = async (id) => {
 }
 const displayCategory = async (id) => {
     const data = await loadCatagoryDetails(id);
-    const categories = data.data
-    // console.log(categories)
-    let count = 0;
-    const allCategory = document.getElementById('all-category');
+    // let isCategories = data.status
+    // console.log(isCategories)
+    const categories = data.data;
 
+    const availableCategories = document.getElementById('categories');
+    const noCategories = document.getElementById('no-categoris');
+    const totalCategories = document.getElementById('total-category')
+
+    if (categories.length === 0) {
+        console.log(categories.length)
+        noCategories.classList.remove('hidden')
+        availableCategories.classList.add('hidden')
+
+    } else {
+        noCategories.classList.add('hidden')
+        availableCategories.classList.remove('hidden')
+        totalCategories.innerHTML = categories.length
+        // p class="text-lg text-black font-semibold">${categories.length} items found for category
+        //             ${categories.category_name}</p>
+        // ` ;
+
+    }
+
+
+
+    const allCategory = document.getElementById('all-category');
+    allCategory.innerHTML = '';
     categories.forEach(category => {
-        // Counter Section Start
-        count++
-        const countCategory = document.getElementById('total-category');
-        countCategory.innerText = count;
-        // Counter secton End
+
 
         const { title, details, total_view, thumbnail_url, author } = category;
 
-        // console.log(category)
         const div = document.createElement('div');
         div.innerHTML = `
         <div class="card card-side bg-white shadow-xl p-2 md:h-72">
@@ -86,8 +103,8 @@ const displayCategory = async (id) => {
                         </div>
                     </div>
                 </div>  `;
-        // <a><i class="fa-solid fa-arrow-right text-2xl text-blue-800"></i></a>
         allCategory.appendChild(div)
+
     });
 
 
