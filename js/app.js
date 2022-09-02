@@ -4,6 +4,7 @@ const loadCategory = async () => {
     const data = await res.json()
     return data;
 }
+// ----------------------Display all News Name ---------------------------------
 
 const displayNews = async () => {
     const data = await loadCategory()
@@ -16,13 +17,13 @@ const displayNews = async () => {
         // console.log(catagory)
         const li = document.createElement('li')
         li.innerHTML = `
-        <a onclick = displayCategory('${news.category_id}')>${news.category_name}</a>
+        <a onclick = "displayCategory('${news.category_id}','${news.category_name}')">${news.category_name}</a>
         `;
         menuItems.appendChild(li);
 
     });
 }
-// https://openapi.programming-hero.com/api/news/category/{category_id}
+// -------------------------Load Categories Details--------------------- 
 
 const loadCatagoryDetails = async (id) => {
     // const id = parseInt(category_id);
@@ -33,31 +34,46 @@ const loadCatagoryDetails = async (id) => {
     // console.log(data)
     return data;
 }
-const displayCategory = async (id) => {
+
+// --------------------------- Load Card details
+
+const cardNewsDetails = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/news/${id}`
+    const res = await fetch(url);
+    const data = await res.json();
+    return data
+}
+
+// ----------------------Display All News ---------------------------------------
+
+const displayCategory = async (id, name) => {
     const data = await loadCatagoryDetails(id);
     // let isCategories = data.status
     // console.log(isCategories)
     const categories = data.data;
-
     const availableCategories = document.getElementById('categories');
     const noCategories = document.getElementById('no-categoris');
-    const totalCategories = document.getElementById('total-category')
 
     if (categories.length === 0) {
-        console.log(categories.length)
+        // console.log(categories.length)
         noCategories.classList.remove('hidden')
+        noCategories.innerHTML = `
+        <p class="text-lg text-black font-semibold">No Item found for:<span class="text-xl text-blue-700 font-bold">
+         ${name}</span> Category</p>
+        `;
         availableCategories.classList.add('hidden')
 
     } else {
         noCategories.classList.add('hidden')
         availableCategories.classList.remove('hidden')
-        totalCategories.innerHTML = categories.length
-        // p class="text-lg text-black font-semibold">${categories.length} items found for category
-        //             ${categories.category_name}</p>
-        // ` ;
+        availableCategories.innerHTML = `
+        <p class="text-lg text-black font-semibold"> <span id="total-category">${categories.length} Items found for this
+                    <span class="text-xl text-blue-700 font-bold">${name}</span>
+                    Category
+                </p>
+        `;
 
     }
-
 
 
     const allCategory = document.getElementById('all-category');
@@ -65,7 +81,7 @@ const displayCategory = async (id) => {
     categories.forEach(category => {
 
 
-        const { title, details, total_view, thumbnail_url, author } = category;
+        const { title, details, total_view, thumbnail_url, author, _id } = category;
 
         const div = document.createElement('div');
         div.innerHTML = `
@@ -98,7 +114,8 @@ const displayCategory = async (id) => {
                                 <i class="fa-regular fa-star"></i>
                                 <i class="fa-regular fa-star"></i>
                             </div>
-                            <button><i class="fa-solid fa-arrow-right text-2xl text-blue-800"></i></button>
+                            <a onclick = "displayCardDetails('${_id}')"  href="#my-modal-2"><i class="fa-solid fa-arrow-right text-2xl text-blue-800">
+                            </i></a>
 
                         </div>
                     </div>
@@ -109,7 +126,27 @@ const displayCategory = async (id) => {
 
 
 }
-displayCategory()
+
+const displayCardDetails = async (id) => {
+    const data = await cardNewsDetails(id);
+    const info = data.data[0]
+    console.log(data)
+    const { _id, title, details, image_url } = info;
+    const newsDetails = document.getElementById('modal-body');
+    newsDetails.innerHTML = `
+    <img src="${image_url}" alt="">
+    <h3 class="font-bold text-lg text-black">${title}</h3>
+    <p class="py-4 text-black">${details.length > 100 ? details.slice(0, 100) + '...' : details}</p>
+    <div class="modal-action">
+        <a href="#" class="bg-slate-400 text-white py-2 px-3 rounded-lg">close</a>
+    </div>`
+
+}
+
+
+
+
+displayCategory('01')
 
 
 displayNews();
