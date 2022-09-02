@@ -6,10 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Portal</title>
+    <!-- tailwind and daisy ui link -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.24.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
-    <h1>hellow world!</h1>
+    <header>
+        <div class="navbar bg-base-100 w-9/12 mx-auto">
+            <div class="flex-1">
+                <a class="btn btn-ghost text-blue-700 normal-case text-3xl">News </a>
+                <a class="btn btn-ghost normal-case text-xl">Portal</a>
+            </div>
+            <div class="flex-none gap-2">
+                <div class="dropdown dropdown-end flex items-center gap-8">
+                    <ul class="flex gap-8 text-xl">
+                        <li>Home</li>
+                        <li>Blog</li>
+                    </ul>
+                    <label tabindex="0" class="btn btn-ghost btn-circle avatar flex">
+                        <div class="w-10 rounded-full">
+                            <img src="images/profile.jpg" />
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </header>
 
 
 
