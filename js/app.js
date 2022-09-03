@@ -169,7 +169,7 @@ const displayCardDetails = async (id) => {
 
 
 const toggleSpiner = isLoding => {
-    // console.log(isLoding);
+    console.log(isLoding);
     const loaderSection = document.getElementById('loder');
     if (isLoding) {
         loaderSection.classList.remove('hidden');
@@ -177,11 +177,6 @@ const toggleSpiner = isLoding => {
         loaderSection.classList.add('hidden');
     }
 }
-// -----------------------Blog open-----------------------
-// const blogButton = document.getElementById('blog-open')
-// blogButton.innerHTML = `
-
-// `
 
 // displayCategory()
 
