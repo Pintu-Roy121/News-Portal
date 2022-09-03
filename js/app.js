@@ -4,29 +4,12 @@ const loadCategory = async () => {
         const res = await fetch(url)
         const data = await res.json()
         return data;
+
     } catch (error) {
         console.log(error);
     }
 }
-// ----------------------Display all News Name ---------------------------------
 
-const displayNews = async () => {
-    const data = await loadCategory()
-    // console.log(data.data.news_category)
-    const newsNames = data.data.news_category;
-    // console.log(newsNames)
-
-    const menuItems = document.getElementById('categories-items');
-    newsNames.forEach(news => {
-        // console.log(catagory)
-        const li = document.createElement('li')
-        li.innerHTML = `
-        <a onclick = "displayCategory('${news.category_id}','${news.category_name}')">${news.category_name}</a>
-        `;
-        menuItems.appendChild(li);
-
-    });
-}
 // -------------------------Load Categories Details--------------------- 
 
 const loadCatagoryDetails = async (id) => {
@@ -44,21 +27,44 @@ const loadCatagoryDetails = async (id) => {
 
 const cardNewsDetails = async (id) => {
     const url = `https://openapi.programming-hero.com/api/news/${id}`
-    const res = await fetch(url);
-    const data = await res.json();
-    return data
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+// ----------------------Display all News Name ---------------------------------
+
+const displayNews = async () => {
+    const data = await loadCategory()
+    const newsNames = data.data.news_category;
+
+    const menuItems = document.getElementById('categories-items');
+    newsNames.forEach(news => {
+
+        const li = document.createElement('li')
+        li.innerHTML = `
+        <a onclick = "displayCategory('${news.category_id}','${news.category_name}')">${news.category_name}</a>
+        `;
+        menuItems.appendChild(li);
+
+    });
 }
 
 // ----------------------Display All News ---------------------------------------
 
 const displayCategory = async (id, name) => {
+    toggleSpiner(true)
     const questionField = document.getElementById('question-section');
     questionField.innerHTML = '';
     const data = await loadCatagoryDetails(id);
 
     const categories = data.data;
 
-    toggleSpiner(true)
     const availableCategories = document.getElementById('categories');
     const noCategories = document.getElementById('no-categoris');
 
@@ -67,14 +73,13 @@ const displayCategory = async (id, name) => {
     });
 
     if (categories.length === 0) {
-        // console.log(categories.length)
 
         noCategories.classList.remove('hidden')
         noCategories.innerHTML = `
-        <p class="text-lg text-black font-semibold"> <span id="total-category">No Items found for: 
-                    <span class="text-xl text-blue-700 font-bold">${name}</span>
-                    Category
-                </p>
+             <p class="text-lg text-black font-semibold"> <span id="total-category">No Items found for: 
+                <span class="text-xl text-blue-700 font-bold">${name}</span>
+                Category
+             </p>
         `;
         availableCategories.classList.add('hidden')
 
@@ -84,10 +89,10 @@ const displayCategory = async (id, name) => {
         noCategories.classList.add('hidden')
         availableCategories.classList.remove('hidden')
         availableCategories.innerHTML = `
-        <p class="text-lg text-black font-semibold"> <span id="total-category">${categories.length} Items found for: 
-                    <span class="text-xl text-blue-700 font-bold">${name}</span>
-                    Category
-                </p>
+            <p class="text-lg text-black font-semibold"> <span id="total-category">${categories.length} Items found for: 
+                <span class="text-xl text-blue-700 font-bold">${name}</span>
+                Category
+            </p>
         `;
         toggleSpiner(false)
 
@@ -98,9 +103,10 @@ const displayCategory = async (id, name) => {
         const { title, details, total_view, thumbnail_url, author, _id } = category;
 
         const div = document.createElement('div');
-        // ------------------------------ all Card section--------------------------
+
+        // ------------------------------ Single Card section--------------------------
         div.innerHTML = `
-        <div class="card card-side bg-white shadow-xl p-2 md:h-72">
+                <div class="card card-side bg-white shadow-xl p-2 md:h-72">
                     <img class="rounded-lg "
                         src="${thumbnail_url}">
                     <div class="card-body text-black">
@@ -120,12 +126,12 @@ const displayCategory = async (id, name) => {
                             </div>
                             <div class="flex items-center font-medium gap-2">
                                 <i class="fa-regular fa-eye text-lg"></i>
-                                <h3 class="text-lg">${total_view ? total_view : 'No data avaiable'}</h3>
+                                <h3 class="text-lg">${total_view ? total_view : 'No Views'}</h3>
                                 
                             </div>
                             <a onclick = "displayCardDetails('${_id}')"  href="#my-modal-2"><i class="fa-solid fa-arrow-right text-2xl text-blue-800">
-                            </i></a>
-
+                            </i>
+                            </a>
                         </div>
                     </div>
                 </div>  `;
@@ -159,10 +165,10 @@ const displayCardDetails = async (id) => {
                 <h2>${author.published_date ? author.published_date : 'No Date Found'}</h2>
             </div>
 
-            </div>
+        </div>
             <div class="flex items-center font-medium gap-2 text-black">
                 <i class="fa-regular fa-eye text-lg"></i>
-                <h3 class="text-lg">${total_view ? total_view : 'No data avaiable'}</h3>
+                <h3 class="text-lg">${total_view ? total_view : 'No Views'}</h3>
             </div>
             <a href="#" class="bg-slate-600 text-white py-2 px-3 rounded-lg">close</a>
     </div>
@@ -170,6 +176,7 @@ const displayCardDetails = async (id) => {
 
 }
 
+// --------------------Spinner section ---------------------------------------
 
 const toggleSpiner = isLoding => {
     const loaderSection = document.getElementById('loder');
@@ -180,10 +187,8 @@ const toggleSpiner = isLoding => {
     }
 }
 
-// const blogEmpty = () => {
-// }
+// ----------------------------Blog section---------------------------------
 
-// --------------------Blog section---------------------------
 document.getElementById('blog-btn').addEventListener('click', function () {
 
     const availableCategories = document.getElementById('categories');
@@ -248,7 +253,6 @@ document.getElementById('blog-btn').addEventListener('click', function () {
     `
 })
 
-
-
+// ------------------- Display all news categories----------------------------
 displayNews();
 

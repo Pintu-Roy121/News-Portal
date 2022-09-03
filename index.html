@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Portal</title>
+    <title>News Network</title>
     <!-- tailwind and daisy ui link -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.24.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,9 +20,9 @@
         <nav>
             <div class="navbar bg-base-100">
                 <div class="flex-1">
-                    <a class="btn btn-ghost text-blue-700 normal-case text-3xl"><span
-                            class="text-red-600 text-4xl">News</span>Portal </a>
-                    <a class="btn btn-ghost normal-case text-xl">Portal</a>
+                    <a class="font-bold text-blue-700 normal-case text-3xl"><span
+                            class="text-red-600 text-4xl">News</span class="normal-case text-3xl">Network </a>
+                    <!-- <a class="btn btn-ghost normal-case text-xl">Network</a> -->
                 </div>
                 <div class="flex-none gap-2">
                     <div class="dropdown dropdown-end flex items-center gap-8">
@@ -44,23 +44,28 @@
     </header>
     <!-- Header section End -->
 
-    <!-- Menu bar added -->
-    <section class=" w-9/12 mx-auto">
-        <div class="my-5">
-            <ul id="categories-items"
-                class="menu menu-horizontal bg-base-100 rounded-box flex sm:flex-wrap justify-between">
-                <!-- <li><a>Item 2</a></li> -->
-            </ul>
-        </div>
-    </section>
-    <!-- Spinner add -->
-
-    <div id="loder" class=" w-9/12 mx-auto text-center hidden my-10">
-        <progress class="progress w-56 bg-slate-50"></progress>
-    </div>
-
     <!-- Main Section start -->
     <main class=" w-9/12 mx-auto mb-10">
+        <!-- Menu bar start -->
+        <section>
+            <div class="my-5">
+                <ul id="categories-items"
+                    class="menu menu-horizontal bg-base-100 rounded-box flex sm:flex-wrap justify-between">
+                    <!-- <li><a>Item 2</a></li> -->
+                </ul>
+            </div>
+        </section>
+        <!-- Menu bar End -->
+
+        <!-- Spinner section start -->
+
+        <section>
+            <div id="loder" class=" w-9/12 mx-auto text-center hidden my-10">
+                <progress class="progress w-56 bg-slate-50"></progress>
+            </div>
+        </section>
+        <!-- Spinner section start -->
+
         <!-- Counter section start -->
         <section>
             <div id="categories" class="bg-white p-4 rounded-lg hidden">
@@ -71,32 +76,31 @@
             </div>
         </section>
         <!-- Counter section End -->
-        <!-- Catagory show  -->
+        <!-- Catagory show start -->
         <section class="my-6">
             <div id="all-category" class="grid sm:grid-cols-1 gap-4">
 
             </div>
         </section>
+        <!-- Catagory show End -->
+        <!-- Modal section start -->
         <section>
             <div class="modal" id="my-modal-2">
                 <div id="modal-body" class="modal-box bg-slate-300">
 
                 </div>
         </section>
-
+        <!-- Modal section start -->
+        <!-- question section start -->
         <section>
             <div id="question-section">
 
             </div>
         </section>
+        <!-- question section start -->
 
     </main>
     <!-- Main Section End -->
-
-
-
-
-
 
 
     <script src="js/app.js"></script>
