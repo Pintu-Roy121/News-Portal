@@ -55,18 +55,24 @@ const displayCategory = async (id, name) => {
 
     toggleSpiner(true)
     const data = await loadCatagoryDetails(id);
-    // let isCategories = data.status
-    // console.log(isCategories)
+
     const categories = data.data;
     const availableCategories = document.getElementById('categories');
     const noCategories = document.getElementById('no-categoris');
+
+    categories.sort((a, b) => {
+        return b.total_view - a.total_view;
+    });
 
 
     if (categories.length === 0) {
         // console.log(categories.length)
         noCategories.classList.remove('hidden')
         noCategories.innerHTML = `
-        <p class="text-lg text-black font-semibold">No Item found</p>
+        <p class="text-lg text-black font-semibold"> <span id="total-category">No Items found for: 
+                    <span class="text-xl text-blue-700 font-bold">${name}</span>
+                    Category
+                </p>
         `;
         availableCategories.classList.add('hidden')
 
@@ -87,28 +93,9 @@ const displayCategory = async (id, name) => {
     const allCategory = document.getElementById('all-category');
     allCategory.innerHTML = '';
 
-    // let totalViews = [];
-    // for (const category of categories) {
-    //     const { total_view } = category;
-    //     totalViews.push(total_view);
 
-    // }
-    // for (var i = 0; i < totalViews.length; i++) {
-    //     var target = totalViews[i];
-    //     for (var j = i - 1; j >= 0 && (totalViews[j] < target); j--) {
-    //         totalViews[j + 1] = totalViews[j];
-    //     }
-    //     totalViews[j + 1] = target
-    // }
-    // console.log(totalViews);
-
-    // // totalViews = totalViews.sort(function (a, b) { return a - b; });
-    // // console.log(totalViews);
-
-    // console.log(totalViews[0]);
     categories.forEach(category => {
         const { title, details, total_view, thumbnail_url, author, _id } = category;
-
 
 
         const div = document.createElement('div');
@@ -134,7 +121,8 @@ const displayCategory = async (id, name) => {
                             </div>
                             <div class="flex items-center font-medium gap-2">
                                 <i class="fa-regular fa-eye text-lg"></i>
-                                <h3 class="text-lg">${total_view ? total_view : 0}</h3>
+                                <h3 class="text-lg">${total_view ? total_view : 'No data avaiable'}</h3>
+                                
                             </div>
                             <a onclick = "displayCardDetails('${_id}')"  href="#my-modal-2"><i class="fa-solid fa-arrow-right text-2xl text-blue-800">
                             </i></a>
@@ -176,7 +164,7 @@ const displayCardDetails = async (id) => {
             </div>
             <div class="flex items-center font-medium gap-2 text-black">
                 <i class="fa-regular fa-eye text-lg"></i>
-                <h3 class="text-lg">${total_view ? total_view : 0}</h3>
+                <h3 class="text-lg">${total_view ? total_view : 'No data avaiable'}</h3>
             </div>
             <a href="#" class="bg-slate-600 text-white py-2 px-3 rounded-lg">close</a>
     </div>
