@@ -55,11 +55,10 @@ const displayCategory = async (id, name) => {
     const noCategories = document.getElementById('no-categoris');
 
     if (categories.length === 0) {
-        // console.log(categories.length)
+        console.log(categories.length)
         noCategories.classList.remove('hidden')
         noCategories.innerHTML = `
-        <p class="text-lg text-black font-semibold">No Item found for:<span class="text-xl text-blue-700 font-bold">
-         ${name}</span> Category</p>
+        <p class="text-lg text-black font-semibold">No Item found</p>
         `;
         availableCategories.classList.add('hidden')
 
@@ -67,7 +66,7 @@ const displayCategory = async (id, name) => {
         noCategories.classList.add('hidden')
         availableCategories.classList.remove('hidden')
         availableCategories.innerHTML = `
-        <p class="text-lg text-black font-semibold"> <span id="total-category">${categories.length} Items found for this
+        <p class="text-lg text-black font-semibold"> <span id="total-category">${categories.length} Items found for: 
                     <span class="text-xl text-blue-700 font-bold">${name}</span>
                     Category
                 </p>
@@ -80,10 +79,11 @@ const displayCategory = async (id, name) => {
     allCategory.innerHTML = '';
     categories.forEach(category => {
 
-
         const { title, details, total_view, thumbnail_url, author, _id } = category;
 
+
         const div = document.createElement('div');
+        // ------------------------------ all Card section--------------------------
         div.innerHTML = `
         <div class="card card-side bg-white shadow-xl p-2 md:h-72">
                     <img class="rounded-lg "
@@ -126,27 +126,47 @@ const displayCategory = async (id, name) => {
 
 
 }
-
+// -----------------------Modal Section -----------------------------
 const displayCardDetails = async (id) => {
     const data = await cardNewsDetails(id);
     const info = data.data[0]
     console.log(data)
-    const { _id, title, details, image_url } = info;
+    const { title, details, image_url, author, total_view } = info;
     const newsDetails = document.getElementById('modal-body');
     newsDetails.innerHTML = `
+
     <img src="${image_url}" alt="">
     <h3 class="font-bold text-lg text-black">${title}</h3>
     <p class="py-4 text-black">${details.length > 100 ? details.slice(0, 100) + '...' : details}</p>
-    <div class="modal-action">
-        <a href="#" class="bg-slate-400 text-white py-2 px-3 rounded-lg">close</a>
-    </div>`
+    <div class="card-actions justify-between items-center gap-2">
+        <div class=" flex items-center gap-2">
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar flex">
+                <div class="w-10 rounded-full">
+                    <img src="${author.img}" />
+                </div>
+            </label>
+            <div class="text-black">
+                <h2 class="font-medium">${author.name}</h2>
+                <h2>${author.published_date}</h2>
+            </div>
+
+            </div>
+            <div class="flex items-center font-medium gap-2 text-black">
+                <i class="fa-regular fa-eye text-lg"></i>
+                <h3 class="text-lg">${total_view}</h3>
+            </div>
+            <a href="#" class="bg-slate-600 text-white py-2 px-3 rounded-lg">close</a>
+    </div>
+
+    `;
 
 }
 
 
 
 
-displayCategory('01')
+// displayCategory()
 
 
 displayNews();
+
