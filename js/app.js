@@ -40,7 +40,7 @@ const loadCatagoryDetails = async (id) => {
     }
 }
 
-// --------------------------- Load Card details
+// --------------------------- Load Card details ----------------------------------
 
 const cardNewsDetails = async (id) => {
     const url = `https://openapi.programming-hero.com/api/news/${id}`
@@ -60,6 +60,7 @@ const displayCategory = async (id, name) => {
     const categories = data.data;
     const availableCategories = document.getElementById('categories');
     const noCategories = document.getElementById('no-categoris');
+
 
     if (categories.length === 0) {
         // console.log(categories.length)
@@ -83,13 +84,31 @@ const displayCategory = async (id, name) => {
         toggleSpiner(false)
 
     }
-
-
     const allCategory = document.getElementById('all-category');
     allCategory.innerHTML = '';
-    categories.forEach(category => {
 
+    // let totalViews = [];
+    // for (const category of categories) {
+    //     const { total_view } = category;
+    //     totalViews.push(total_view);
+
+    // }
+    // for (var i = 0; i < totalViews.length; i++) {
+    //     var target = totalViews[i];
+    //     for (var j = i - 1; j >= 0 && (totalViews[j] < target); j--) {
+    //         totalViews[j + 1] = totalViews[j];
+    //     }
+    //     totalViews[j + 1] = target
+    // }
+    // console.log(totalViews);
+
+    // // totalViews = totalViews.sort(function (a, b) { return a - b; });
+    // // console.log(totalViews);
+
+    // console.log(totalViews[0]);
+    categories.forEach(category => {
         const { title, details, total_view, thumbnail_url, author, _id } = category;
+
 
 
         const div = document.createElement('div');
@@ -109,13 +128,13 @@ const displayCategory = async (id, name) => {
                                     </div>
                                 </label>
                                 <div>
-                                    <h2 class="font-medium">${author.name}</h2>
-                                    <h2>${author.published_date}</h2>
+                                    <h2 class="font-medium">${author.name ? author.name : "Unknown"}</h2>
+                                    <h2>${author.published_date ? author.published_date : 'No Date Found'}</h2>
                                 </div>
                             </div>
                             <div class="flex items-center font-medium gap-2">
                                 <i class="fa-regular fa-eye text-lg"></i>
-                                <h3 class="text-lg">${total_view}</h3>
+                                <h3 class="text-lg">${total_view ? total_view : 0}</h3>
                             </div>
                             <a onclick = "displayCardDetails('${_id}')"  href="#my-modal-2"><i class="fa-solid fa-arrow-right text-2xl text-blue-800">
                             </i></a>
@@ -134,7 +153,7 @@ const displayCardDetails = async (id) => {
     // toggleSpiner(true)
     const data = await cardNewsDetails(id);
     const info = data.data[0]
-    console.log(data)
+    // console.log(data)
     const { title, details, image_url, author, total_view } = info;
     const newsDetails = document.getElementById('modal-body');
     newsDetails.innerHTML = `
@@ -150,14 +169,14 @@ const displayCardDetails = async (id) => {
                 </div>
             </label>
             <div class="text-black">
-                <h2 class="font-medium">${author.name}</h2>
-                <h2>${author.published_date}</h2>
+                <h2 class="font-medium">${author.name ? author.name : 'Unknown'}</h2>
+                <h2>${author.published_date ? author.published_date : 'No Date Found'}</h2>
             </div>
 
             </div>
             <div class="flex items-center font-medium gap-2 text-black">
                 <i class="fa-regular fa-eye text-lg"></i>
-                <h3 class="text-lg">${total_view}</h3>
+                <h3 class="text-lg">${total_view ? total_view : 0}</h3>
             </div>
             <a href="#" class="bg-slate-600 text-white py-2 px-3 rounded-lg">close</a>
     </div>
@@ -169,7 +188,6 @@ const displayCardDetails = async (id) => {
 
 
 const toggleSpiner = isLoding => {
-    console.log(isLoding);
     const loaderSection = document.getElementById('loder');
     if (isLoding) {
         loaderSection.classList.remove('hidden');
