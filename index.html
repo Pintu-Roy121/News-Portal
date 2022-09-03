@@ -27,7 +27,9 @@
                     <div class="dropdown dropdown-end flex items-center gap-8">
                         <ul class="flex gap-8 text-xl">
                             <li><a class="btn btn-ghost normal-case text-xl">Home</a></li>
-                            <li><a class="btn btn-ghost normal-case text-xl">Blog</a></li>
+                            <li><a class="btn btn-ghost normal-case text-xl" href="#my-modal-3">Blog</a></li>
+
+                            <!-- <a href="#my-modal-3" class="btn">open modal</a> -->
                         </ul>
                         <label tabindex="0" class="btn btn-ghost btn-circle avatar flex">
                             <div class="w-10 rounded-full">
@@ -88,6 +90,56 @@
                 <div id="modal-body" class="modal-box bg-slate-300">
 
                 </div>
+        </section>
+
+        <section>
+            <!-- The button to open modal -->
+            <!-- <a href="#my-modal-3" class="btn">open modal</a> -->
+            <div class="modal" id="my-modal-3">
+                <div class="modal-box">
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                        <div class="collapse-title text-xl font-medium">
+                            <h3>What the difference between var, let and const?</h3>
+                        </div>
+                        <div class="collapse-content">
+                            <p>The scope of a Var variable is functional scope. The scope of a let variable is block
+                                scope. The scope of a const variable is block scope.<br>
+                                Var can be updated and re-declared into the scope. let can be updated but cannot be
+                                re-declared into the scope. const cannot be updated or re-declared into the scope. <br>
+                                var can be declared without initialization. let can be declared without initialization.
+                                const cannot be declared without initialization.
+                            </p>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                        <div class="collapse-title text-xl font-medium">
+                            <h3>Difference between arrow function and regular function in javascript?</h3>
+                        </div>
+                        <div class="collapse-content">
+                            <p>Regular functions created using function declarations or expressions are constructible
+                                and callable. Since regular functions are constructible, they can be called using the
+                                new keyword. However, the arrow functions are only callable and not constructible, i.e
+                                arrow functions can never be used as constructor functions.
+                            </p>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                        <div class="collapse-title text-xl font-medium">
+                            <h3>why use template literals in javascript?</h3>
+                        </div>
+                        <div class="collapse-content">
+                            <p>template literals is an ES6 feature that allows you to create strings in JavaScript.
+                                Although backticks are mostly used for HTML or code embedding purposes, they also act
+                                similar to single and double quotes. Besides, using backticks makes it easier for string
+                                operations.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="modal-action">
+                        <a href="#" class="btn">Close</a>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main>
