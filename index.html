@@ -13,9 +13,9 @@
     <script src="https://kit.fontawesome.com/a8356b177a.js" crossorigin="anonymous"></script>
 </head>
 
-<body class=" w-9/12 mx-auto">
+<body>
     <!-- Header section start -->
-    <header class="mb-5">
+    <header class="mb-5 w-9/12 mx-auto">
         <!-- Navber start -->
         <nav>
             <div class="navbar bg-base-100">
@@ -26,8 +26,8 @@
                 <div class="flex-none gap-2">
                     <div class="dropdown dropdown-end flex items-center gap-8">
                         <ul class="flex gap-8 text-xl">
-                            <li>Home</li>
-                            <li>Blog</li>
+                            <li><a class="btn btn-ghost normal-case text-xl">Home</a></li>
+                            <li><a class="btn btn-ghost normal-case text-xl">Blog</a></li>
                         </ul>
                         <label tabindex="0" class="btn btn-ghost btn-circle avatar flex">
                             <div class="w-10 rounded-full">
@@ -44,7 +44,7 @@
     <!-- Header section End -->
 
     <!-- Menu bar added -->
-    <section>
+    <section class=" w-9/12 mx-auto">
         <div class="my-5">
             <ul id="categories-items"
                 class="menu menu-horizontal bg-base-100 rounded-box flex sm:flex-wrap justify-between">
@@ -52,8 +52,21 @@
             </ul>
         </div>
     </section>
+    <!-- Spinner add -->
+
+    <div id="loder" class=" w-9/12 mx-auto text-center hidden my-10">
+        <progress class="progress w-56 bg-slate-50"></progress>
+    </div>
+    <!-- <div id="loder" class="flex items-center justify-center my-10">
+        <div class="spinner-border border-red-700 animate-spin inline-block w-8 h-8 border-4 rounded-full"
+            role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div> -->
+
+
     <!-- Main Section start -->
-    <main>
+    <main class=" w-9/12 mx-auto">
         <!-- Counter section start -->
         <section>
             <div id="categories" class="bg-white p-4 rounded-lg hidden">
@@ -67,49 +80,12 @@
         <!-- Catagory show  -->
         <section class="my-6">
             <div id="all-category" class="grid sm:grid-cols-1 gap-4">
-                <!-- <div>
-                    <div class="card card-side bg-white shadow-xl p-2 h-80">
-                        <img class="rounded-lg "
-                            src="https://images.unsplash.com/photo-1662013605243-e68381f78925?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
-                            alt="Movie">
-                        <div class="card-body text-black">
-                            <h2 class="card-title ">New movie is released!</h2>
-                            <p>Click the button to watch on Jetflix app.</p>
-                            <div class="card-actions justify-between items-center">
-                                <div class="flex gap-2">
-                                    <label tabindex="0" class="btn btn-ghost btn-circle avatar flex">
-                                        <div class="w-10 rounded-full">
-                                            <img src="images/profile.jpg" />
-                                        </div>
-                                    </label>
-                                    <div>
-                                        <h2 class="font-medium">Name of Person</h2>
-                                        <h2>Today Date</h2>
-                                    </div>
-                                </div>
-                                <div class="flex items-center font-medium gap-2">
-                                    <i class="fa-regular fa-eye text-lg"></i>
-                                    <h3 class="text-lg">1.5 M</h3>
-                                </div>
-                                <div class="flex gap-2">
-                                    <i class="fa-solid fa-star-half-stroke"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                    <i class="fa-regular fa-star"></i>
-                                </div>
-                                <button class="btn btn-primary">Watch</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+
             </div>
         </section>
         <section>
             <div class="modal" id="my-modal-2">
                 <div id="modal-body" class="modal-box bg-slate-300">
-
-
 
                 </div>
         </section>

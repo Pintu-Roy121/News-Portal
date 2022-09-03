@@ -1,8 +1,12 @@
 const loadCategory = async () => {
     const url = 'https://openapi.programming-hero.com/api/news/categories'
-    const res = await fetch(url)
-    const data = await res.json()
-    return data;
+    try {
+        const res = await fetch(url)
+        const data = await res.json()
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
 }
 // ----------------------Display all News Name ---------------------------------
 
@@ -26,13 +30,14 @@ const displayNews = async () => {
 // -------------------------Load Categories Details--------------------- 
 
 const loadCatagoryDetails = async (id) => {
-    // const id = parseInt(category_id);
-    // console.log(id)
     const url = (`https://openapi.programming-hero.com/api/news/category/${id}`)
-    const res = await fetch(url);
-    const data = await res.json();
-    // console.log(data)
-    return data;
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 // --------------------------- Load Card details
@@ -47,6 +52,8 @@ const cardNewsDetails = async (id) => {
 // ----------------------Display All News ---------------------------------------
 
 const displayCategory = async (id, name) => {
+
+    toggleSpiner(true)
     const data = await loadCatagoryDetails(id);
     // let isCategories = data.status
     // console.log(isCategories)
@@ -55,12 +62,14 @@ const displayCategory = async (id, name) => {
     const noCategories = document.getElementById('no-categoris');
 
     if (categories.length === 0) {
-        console.log(categories.length)
+        // console.log(categories.length)
         noCategories.classList.remove('hidden')
         noCategories.innerHTML = `
         <p class="text-lg text-black font-semibold">No Item found</p>
         `;
         availableCategories.classList.add('hidden')
+
+        toggleSpiner(false)
 
     } else {
         noCategories.classList.add('hidden')
@@ -71,6 +80,7 @@ const displayCategory = async (id, name) => {
                     Category
                 </p>
         `;
+        toggleSpiner(false)
 
     }
 
@@ -107,13 +117,6 @@ const displayCategory = async (id, name) => {
                                 <i class="fa-regular fa-eye text-lg"></i>
                                 <h3 class="text-lg">${total_view}</h3>
                             </div>
-                            <div class="flex gap-2">
-                                <i class="fa-solid fa-star-half-stroke"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
                             <a onclick = "displayCardDetails('${_id}')"  href="#my-modal-2"><i class="fa-solid fa-arrow-right text-2xl text-blue-800">
                             </i></a>
 
@@ -128,6 +131,7 @@ const displayCategory = async (id, name) => {
 }
 // -----------------------Modal Section -----------------------------
 const displayCardDetails = async (id) => {
+    // toggleSpiner(true)
     const data = await cardNewsDetails(id);
     const info = data.data[0]
     console.log(data)
@@ -159,11 +163,25 @@ const displayCardDetails = async (id) => {
     </div>
 
     `;
+    // toggleSpiner(false)
 
 }
 
 
+const toggleSpiner = isLoding => {
+    // console.log(isLoding);
+    const loaderSection = document.getElementById('loder');
+    if (isLoding) {
+        loaderSection.classList.remove('hidden');
+    } else {
+        loaderSection.classList.add('hidden');
+    }
+}
+// -----------------------Blog open-----------------------
+// const blogButton = document.getElementById('blog-open')
+// blogButton.innerHTML = `
 
+// `
 
 // displayCategory()
 
