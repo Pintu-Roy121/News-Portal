@@ -52,11 +52,13 @@ const cardNewsDetails = async (id) => {
 // ----------------------Display All News ---------------------------------------
 
 const displayCategory = async (id, name) => {
-
-    toggleSpiner(true)
+    const questionField = document.getElementById('question-section');
+    questionField.innerHTML = '';
     const data = await loadCatagoryDetails(id);
 
     const categories = data.data;
+
+    toggleSpiner(true)
     const availableCategories = document.getElementById('categories');
     const noCategories = document.getElementById('no-categoris');
 
@@ -64,9 +66,9 @@ const displayCategory = async (id, name) => {
         return b.total_view - a.total_view;
     });
 
-
     if (categories.length === 0) {
         // console.log(categories.length)
+
         noCategories.classList.remove('hidden')
         noCategories.innerHTML = `
         <p class="text-lg text-black font-semibold"> <span id="total-category">No Items found for: 
@@ -92,11 +94,8 @@ const displayCategory = async (id, name) => {
     }
     const allCategory = document.getElementById('all-category');
     allCategory.innerHTML = '';
-
-
     categories.forEach(category => {
         const { title, details, total_view, thumbnail_url, author, _id } = category;
-
 
         const div = document.createElement('div');
         // ------------------------------ all Card section--------------------------
@@ -133,16 +132,15 @@ const displayCategory = async (id, name) => {
         allCategory.appendChild(div)
 
     });
-
-
 }
 // -----------------------Modal Section -----------------------------
 const displayCardDetails = async (id) => {
-    // toggleSpiner(true)
+
     const data = await cardNewsDetails(id);
-    const info = data.data[0]
-    // console.log(data)
-    const { title, details, image_url, author, total_view } = info;
+    const categories = data.data[0]
+    console.log(categories);
+
+    const { title, details, image_url, author, total_view } = categories;
     const newsDetails = document.getElementById('modal-body');
     newsDetails.innerHTML = `
 
@@ -168,9 +166,7 @@ const displayCardDetails = async (id) => {
             </div>
             <a href="#" class="bg-slate-600 text-white py-2 px-3 rounded-lg">close</a>
     </div>
-
     `;
-    // toggleSpiner(false)
 
 }
 
@@ -184,7 +180,74 @@ const toggleSpiner = isLoding => {
     }
 }
 
-// displayCategory()
+// const blogEmpty = () => {
+// }
+
+// --------------------Blog section---------------------------
+document.getElementById('blog-btn').addEventListener('click', function () {
+
+    const availableCategories = document.getElementById('categories');
+    availableCategories.innerHTML = '';
+    const noCategories = document.getElementById('no-categoris');
+    noCategories.innerHTML = '';
+    const allCategory = document.getElementById('all-category');
+    allCategory.innerHTML = '';
+    const questionField = document.getElementById('question-section');
+    questionField.innerHTML = `
+    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+    <div class="collapse-title text-xl font-medium">
+        <h3>What's the difference between var, let and const?</h3>
+    </div>
+    <div class="collapse-content">
+        <p>The scope of a Var variable is functional scope. The scope of a let variable is block
+            scope. The scope of a const variable is block scope.<br>
+            Var can be updated and re-declared into the scope. let can be updated but cannot be
+            re-declared into the scope. const cannot be updated or re-declared into the scope. <br>
+            var can be declared without initialization. let can be declared without initialization.
+            const cannot be declared without initialization.
+        </p>
+    </div>
+</div>
+<div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box my-6">
+    <div class="collapse-title text-xl font-medium">
+        <h3>Difference between arrow function and regular function in javascript?</h3>
+    </div>
+    <div class="collapse-content">
+        <p>Regular functions created using function declarations or expressions are constructible
+            and callable. Since regular functions are constructible, they can be called using the
+            new keyword. However, the arrow functions are only callable and not constructible, i.e
+            arrow functions can never be used as constructor functions.
+        </p>
+    </div>
+</div>
+<div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+    <div class="collapse-title text-xl font-medium">
+        <h3>Why use template literals in javascript?</h3>
+    </div>
+    <div class="collapse-content">
+        <p>template literals is an ES6 feature that allows you to create strings in JavaScript.
+            Although backticks are mostly used for HTML or code embedding purposes, they also act
+            similar to single and double quotes. Besides, using backticks makes it easier for string
+            operations.
+        </p>
+    </div>
+</div>
+<div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box my-6">
+    <div class="collapse-title text-xl font-medium">
+        <h3>Difference among foreach filter find and map javascript</h3>
+    </div>
+    <div class="collapse-content">
+        <p>The main difference between map and forEach is that the map method returns a new array by applying the callback function on each element of an array, <br>
+        while the forEach method doesn't return anything. You can use the forEach method to mutate the source array, but this isn't really the way it's meant to be used.<br>
+        The find() method is used to find all the descendant elements of the selected element. It finds the element in the DOM tree by traversing through the root to leaf. <br>
+        The filter() method is used to filters all the elements and returns the element that matches and the element that do not match are removed.
+        </p>
+    </div>
+</div>
+    
+    `
+})
+
 
 
 displayNews();
